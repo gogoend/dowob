@@ -5,6 +5,7 @@ class DoButton extends HTMLElement{
         this.attachShadow({
             mode: 'open'
         })
+        this.render()
     }
     static get observedAttributes() {
         return ['type','appearance','disabled']
@@ -22,7 +23,11 @@ class DoButton extends HTMLElement{
         val? this.setAttribute('appearance',val):this.removeAttribute('appearance')
     }
     set disabled(val){
-        val? this.el.setAttribute('disabled',''):this.el.removeAttribute('disabled')
+        if(val===null||val===false){
+            this.removeAttribute('disabled')
+        }else{
+            this.setAttribute('disabled','true')
+        }
         // this.setAttribute('disabled',val)
     }
     get disabled(){
@@ -40,21 +45,20 @@ class DoButton extends HTMLElement{
                 break
             }
             case 'disabled':{
-                if(newValue){
-                    this.el.setAttribute('disabled','')
+                if(newValue!==null){
+                    this.el.setAttribute('disabled', 'true');
                 }else{
-                    this.el.removeAttribute('disabled')
+                    this.el.removeAttribute('disabled');
                 }
             }
         }
     }
     connectedCallback(){
-        this.render()
-        this.el = this.shadowRoot.getElementById('el')
     }
 
     render(){
         this.shadowRoot.innerHTML = template()
+        this.el = this.shadowRoot.getElementById('el')
     }
 }
 if (!customElements.get('do-button')) {
