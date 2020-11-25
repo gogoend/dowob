@@ -1,3 +1,5 @@
+import template from './template.js'
+
 class DoSwitch extends HTMLElement{
     constructor(){
         super()
@@ -6,8 +8,17 @@ class DoSwitch extends HTMLElement{
         })
         this.render()
     }
+
+    get value () {
+        return this.switchFlag.checked
+    }
+    set value (val) {
+        this.switchFlag.checked = val;
+    }
     render(){
-        this.shadowRoot.innerHTML = '111'
+        this.shadowRoot.innerHTML = template()
+        this.el = this.shadowRoot.getElementById('el')
+        this.switchFlag = this.shadowRoot.getElementById('switch-flag')
     }
 }
 if (!customElements.get('do-switch')) {
