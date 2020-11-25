@@ -3,6 +3,7 @@ return `
 <style>
     /* 公共样式 */
     :host {
+        display: inline-block;
         color: #F2FDFF;
         --normal-lighter: hsl(187, 75%, 57%);
         --normal: hsl(187, 75%, 47%);
@@ -15,13 +16,15 @@ return `
     }
 
     button {
+        display: block;
+        box-sizing: border-box;
         font-size: inherit;
         border: 0;
-        padding: 0.75em 1em;
-        text-shadow: 0;
+        border: 1px solid transparent;
+        padding: 0.75em 2em;
         border-radius: 4px;
         cursor: pointer;
-        box-sizing: border-box;
+        transition: 0.2s ease box-shadow
     }
 
     button:disabled {
@@ -37,11 +40,13 @@ return `
     :host(:not([appearance])) button {
         color: var(--normal);
         background: #fff;
-        border: 1px solid currentColor
+        border-color: currentColor;
+        border-style: solid;
     }
     :host([type="danger"]:not([appearance])) button {
         color: var(--danger);
-        border: 1px solid currentColor
+        border-color: currentColor;
+        border-style: solid;
     }
     /* 包含appearance的样式 */
     :host([appearance="primary"]) button,
